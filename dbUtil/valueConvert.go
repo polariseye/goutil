@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/Jordanzuo/goutil/typeUtil"
+	"github.com/polariseye/goutil/typeUtil"
 )
 
 // 类型转换为byte

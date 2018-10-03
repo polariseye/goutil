@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/Jordanzuo/Framework/goroutineMgr"
-	"github.com/Jordanzuo/Framework/monitorMgr"
-	"github.com/Jordanzuo/goutil/debugUtil"
-	"github.com/Jordanzuo/goutil/logUtil"
+	"github.com/polariseye/Framework/goroutineMgr"
+	"github.com/polariseye/Framework/monitorMgr"
+	"github.com/polariseye/goutil/debugUtil"
+	"github.com/polariseye/goutil/logUtil"
 )
 
 // 负责发送数据的协程

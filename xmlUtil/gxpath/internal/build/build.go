@@ -4,9 +4,9 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/Jordanzuo/goutil/xmlUtil/gxpath/internal/parse"
-	"github.com/Jordanzuo/goutil/xmlUtil/gxpath/internal/query"
-	"github.com/Jordanzuo/goutil/xmlUtil/gxpath/xpath"
+	"github.com/polariseye/goutil/xmlUtil/gxpath/internal/parse"
+	"github.com/polariseye/goutil/xmlUtil/gxpath/internal/query"
+	"github.com/polariseye/goutil/xmlUtil/gxpath/xpath"
 )
 
 type flag int

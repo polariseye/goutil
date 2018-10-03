@@ -3,7 +3,7 @@ package ensureSendUtil
 import (
 	"fmt"
 
-	"github.com/Jordanzuo/goutil/webUtil"
+	"github.com/polariseye/goutil/webUtil"
 )
 
 // 实现 EnsureSender和sender接口

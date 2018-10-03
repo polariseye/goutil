@@ -5,7 +5,7 @@ import (
 	"encoding/base64"
 	"io"
 
-	"github.com/Jordanzuo/goutil/securityUtil"
+	"github.com/polariseye/goutil/securityUtil"
 )
 
 // 获取新的GUID字符串

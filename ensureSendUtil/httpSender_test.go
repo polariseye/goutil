@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Jordanzuo/goutil/debugUtil"
+	"github.com/polariseye/goutil/debugUtil"
 )
 
 // 保存接收的数据用于校验

@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/Jordanzuo/goutil/typeUtil"
+	"github.com/polariseye/goutil/typeUtil"
 )
 
 // APP Store充值收据对象

@@ -1,9 +1,9 @@
 package gxpath
 
 import (
-	"github.com/Jordanzuo/goutil/xmlUtil/gxpath/internal/build"
-	"github.com/Jordanzuo/goutil/xmlUtil/gxpath/internal/query"
-	"github.com/Jordanzuo/goutil/xmlUtil/gxpath/xpath"
+	"github.com/polariseye/goutil/xmlUtil/gxpath/internal/build"
+	"github.com/polariseye/goutil/xmlUtil/gxpath/internal/query"
+	"github.com/polariseye/goutil/xmlUtil/gxpath/xpath"
 )
 
 // NodeIterator holds all matched Node object.

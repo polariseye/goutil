@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/Jordanzuo/goutil/webUtil"
+	"github.com/polariseye/goutil/webUtil"
 )
 
 const (

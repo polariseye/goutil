@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Jordanzuo/goutil/stringUtil"
+	"github.com/polariseye/goutil/stringUtil"
 )
 
 // format time like java, such as: yyyy-MM-dd HH:mm:ss

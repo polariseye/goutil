@@ -3,9 +3,9 @@ package ensureSendUtil
 import (
 	"fmt"
 
-	"github.com/Jordanzuo/goutil/fileUtil"
-	"github.com/Jordanzuo/goutil/logUtil"
-	"github.com/Jordanzuo/goutil/stringUtil"
+	"github.com/polariseye/goutil/fileUtil"
+	"github.com/polariseye/goutil/logUtil"
+	"github.com/polariseye/goutil/stringUtil"
 )
 
 // 从目录加载缓存数据并发送

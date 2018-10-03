@@ -9,7 +9,7 @@ import (
 	"io/ioutil"
 	"regexp"
 
-	"github.com/Jordanzuo/goutil/stringUtil"
+	"github.com/polariseye/goutil/stringUtil"
 )
 
 // If X2jCharsetReader != nil, it will be used to decode the doc or stream if required

@@ -3,8 +3,8 @@ package xmlUtil
 import (
 	"fmt"
 
-	"github.com/Jordanzuo/goutil/xmlUtil/gxpath"
-	"github.com/Jordanzuo/goutil/xmlUtil/gxpath/xpath"
+	"github.com/polariseye/goutil/xmlUtil/gxpath"
+	"github.com/polariseye/goutil/xmlUtil/gxpath/xpath"
 )
 
 // xml节点查找结构(用于遍历xml节点)

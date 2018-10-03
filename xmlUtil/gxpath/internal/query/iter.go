@@ -1,6 +1,6 @@
 package query
 
-import "github.com/Jordanzuo/goutil/xmlUtil/gxpath/xpath"
+import "github.com/polariseye/goutil/xmlUtil/gxpath/xpath"
 
 type Iterator interface {
 	Current() xpath.NodeNavigator

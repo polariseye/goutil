@@ -3,7 +3,7 @@ package typeUtil
 import (
 	"testing"
 
-	"github.com/Jordanzuo/goutil/timeUtil"
+	"github.com/polariseye/goutil/timeUtil"
 )
 
 // 转换为int测试

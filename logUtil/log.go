@@ -11,10 +11,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Jordanzuo/goutil/debugUtil"
-	"github.com/Jordanzuo/goutil/fileUtil"
-	"github.com/Jordanzuo/goutil/stringUtil"
-	"github.com/Jordanzuo/goutil/timeUtil"
+	"github.com/polariseye/goutil/debugUtil"
+	"github.com/polariseye/goutil/fileUtil"
+	"github.com/polariseye/goutil/stringUtil"
+	"github.com/polariseye/goutil/timeUtil"
 )
 
 const (

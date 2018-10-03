@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Jordanzuo/goutil/logUtil"
+	"github.com/polariseye/goutil/logUtil"
 	_ "github.com/go-sql-driver/mysql"
 )
 

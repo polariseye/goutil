@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/Jordanzuo/goutil/typeUtil"
+	"github.com/polariseye/goutil/typeUtil"
 )
 
 // 获取指定xpath路径下的值
