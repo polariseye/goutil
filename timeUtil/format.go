@@ -1,6 +1,7 @@
 package timeUtil
 
 import (
+	"fmt"
 	"strconv"
 	"strings"
 	"time"
@@ -153,29 +154,31 @@ func ToDateTimeString(timeVal time.Time) string {
 }
 
 // 转换成日期格式
-func ToDateTime(timeVal string) time.Time {
+func ToDateTime(timeVal string) (time.Time, error) {
 	if stringUtil.IsEmpty(timeVal) {
-		return time.Time{}
+		return time.Time{}, fmt.Errorf("timeval is empty")
 	}
 
-	tmpval, errMsg := time.ParseInLocation("2006-01-02 15:04:05", timeVal, time.Local)
-	if errMsg != nil {
-		return time.Time{}
-	}
-
-	return tmpval
+	return time.ParseInLocation("2006-01-02 15:04:05", timeVal, time.Local)
 }
 
 // 转换成时间格式
-func ToDate(timeVal string) time.Time {
+func ToDate(timeVal string) (time.Time, error) {
 	if stringUtil.IsEmpty(timeVal) {
-		return time.Time{}
+		return time.Time{}, fmt.Errorf("timeval is empty")
 	}
 
-	tmpval, errMsg := time.ParseInLocation("2006-01-02", timeVal, time.Local)
-	if errMsg != nil {
-		return time.Time{}
-	}
+	return time.ParseInLocation("2006-01-02", timeVal, time.Local)
+}
 
-	return tmpval
+// 转换成yyyyMMddHHmmssms的格式
+func ToInt64(timeVal time.Time) int64 {
+	year := timeVal.Year()
+	month := int(timeVal.Month())
+	day := timeVal.Day()
+	hour := timeVal.Hour()
+	minute := timeVal.Minute()
+	second := timeVal.Second()
+
+	return int64(int64(year)*1e10) + int64(month*1e8) + int64(day*1e6) + int64(hour*1e4) + int64(minute*1e2) + int64(second)
 }

@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="7823562f-a594-4861-80c2-c63311b6bf82" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/goutil.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/appChargeUtil/doc.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/appChargeUtil/receipt.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/appChargeUtil/receipt_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/appChargeUtil/verify.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/configUtil/xmlConfig.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/configUtil/xmlConfigList.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dbUtil/dataRow.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dbUtil/dataTable.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dbUtil/valueConvert.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debugUtil/display.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ensureSendUtil/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ensureSendUtil/baseSender.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ensureSendUtil/dataItem.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ensureSendUtil/ensureSendUtil.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ensureSendUtil/ensureSender.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ensureSendUtil/httpSender.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ensureSendUtil/httpSender_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ensureSendUtil/saveData.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ensureSendUtil/send.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ensureSendUtil/tcpSender.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ensureSendUtil/tcpSender_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fileUtil/bigFile.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fileUtil/bigFile_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fileUtil/file_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fileUtil/gzip.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fileUtil/gzip_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fileUtil/tar.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fileUtil/tar_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logUtil/logByType.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mailUtil/doc.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mailUtil/simpleClient.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mailUtil/smtpClient.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mathUtil/iWeight.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mathUtil/intRegion.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mathUtil/math.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mathUtil/math_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysqlUtil/convert.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysqlUtil/dbConfig.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysqlUtil/dbConn.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/netUtil/net.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/redisUtil/const.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/redisUtil/redisConfig.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/redisUtil/redisPool.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/runtimeUtil/memstate.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/securityUtil/hmac.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/securityUtil/hmac_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/securityUtil/rsa.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/securityUtil/rsa_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/securityUtil/sha256.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/securityUtil/sha256_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/stringUtil/emojiCharFilter.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/stringUtil/emojiCharFilter_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/stringUtil/guid.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/stringUtil/guid_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/syncUtil/locker.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/syncUtil/locker_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/syncUtil/rwLocker.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/syncUtil/rwLocker_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/timeUtil/check.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/timeUtil/check_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/validationUtil/regexpValidation.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/validationUtil/regexpValidation_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/validationUtil/validationUtil.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/xmlUtil/doc.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/xmlUtil/gxpath/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/xmlUtil/gxpath/internal/build/build.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/xmlUtil/gxpath/internal/build/expr.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/xmlUtil/gxpath/internal/build/func.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/xmlUtil/gxpath/internal/parse/char.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/xmlUtil/gxpath/internal/parse/node.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/xmlUtil/gxpath/internal/parse/parse.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/xmlUtil/gxpath/internal/parse/scan.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/xmlUtil/gxpath/internal/query/iter.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/xmlUtil/gxpath/internal/query/query.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/xmlUtil/gxpath/select.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/xmlUtil/gxpath/select_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/xmlUtil/gxpath/xpath/node.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/xmlUtil/gxpath/xpath/xpath.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/xmlUtil/load.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/xmlUtil/load_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/xmlUtil/node.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/xmlUtil/node_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/xmlUtil/query.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/xmlUtil/query_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/xmlUtil/sample.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configUtil/jsonArray_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configUtil/json_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configUtil/testdata/jsonConfig.ini" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/configUtil/testdata/jsonConfigArray.ini" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/debugUtil/debug.go" beforeDir="false" afterPath="$PROJECT_DIR$/debugUtil/debug.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dfaUtil/dfa.go" beforeDir="false" afterPath="$PROJECT_DIR$/dfaUtil/dfa.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dfaUtil/dfa_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/dfaUtil/dfa_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dfaUtil/node.go" beforeDir="false" afterPath="$PROJECT_DIR$/dfaUtil/node.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fileUtil/file.go" beforeDir="false" afterPath="$PROJECT_DIR$/fileUtil/file.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logUtil/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/logUtil/log.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logUtil/log_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/logUtil/log_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathUtil/rand.go" beforeDir="false" afterPath="$PROJECT_DIR$/mathUtil/rand.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mathUtil/rand_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/mathUtil/rand_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stringUtil/string.go" beforeDir="false" afterPath="$PROJECT_DIR$/stringUtil/string.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stringUtil/string_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/stringUtil/string_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/syncUtil/lockUtil.go" beforeDir="false" afterPath="$PROJECT_DIR$/syncUtil/lockUtil.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/syncUtil/rwmutexUtil.go" beforeDir="false" afterPath="$PROJECT_DIR$/syncUtil/rwmutexUtil.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/timeUtil/convert.go" beforeDir="false" afterPath="$PROJECT_DIR$/timeUtil/convert.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/timeUtil/convert_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/timeUtil/convert_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/timeUtil/format.go" beforeDir="false" afterPath="$PROJECT_DIR$/timeUtil/format.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/typeUtil/interface.go" beforeDir="false" afterPath="$PROJECT_DIR$/typeUtil/interface.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/typeUtil/interface_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/typeUtil/interface_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/typeUtil/mapData.go" beforeDir="false" afterPath="$PROJECT_DIR$/typeUtil/mapData.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webUtil/get.go" beforeDir="false" afterPath="$PROJECT_DIR$/webUtil/get.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webUtil/get_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/webUtil/get_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webUtil/post.go" beforeDir="false" afterPath="$PROJECT_DIR$/webUtil/post.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webUtil/post_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webUtil/web.go" beforeDir="false" afterPath="$PROJECT_DIR$/webUtil/web.go" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="1994324835">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.open.time.13" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="475">
+              <caret line="25" column="7" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="GOROOT" path="D:\Program Files\03ProgramEditor\Go" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/.gitignore" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="260" />
+    <option name="y" value="20" />
+    <option name="width" value="1400" />
+    <option name="height" value="1000" />
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="goutil" type="b2602c69:ProjectViewProjectNode" />
+              <item name="goutil" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="go.gopath.indexing.explicitly.defined" value="true" />
+    <property name="go.sdk.automatically.set" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="260" y="20" width="1400" height="1000" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Favorites" side_tool="true" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" visible="true" weight="0.32947975" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Database" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="25" column="7" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
