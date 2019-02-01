@@ -1,4 +1,4 @@
-package intAndBytesUtil
+package bytesUtil
 
 import (
 	"bytes"
@@ -47,4 +47,14 @@ func Int64ToBytes(n int64, order binary.ByteOrder) []byte {
 	binary.Write(bytesBuffer, order, n)
 
 	return bytesBuffer.Bytes()
+}
+
+// Uint16转换为字节
+// n：int64型数字
+// order：大、小端的枚举
+// 返回值：对应的字节数组
+func Uint64ToBytes(n uint16, order binary.ByteOrder) []byte {
+	bytes := make([]byte, 2)
+	order.PutUint16(bytes, n)
+	return bytes
 }

@@ -1,4 +1,4 @@
-package intAndBytesUtil
+package bytesUtil
 
 import (
 	"encoding/binary"
