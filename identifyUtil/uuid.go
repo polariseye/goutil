@@ -32,8 +32,11 @@ const (
 
 type (
 	Snowflake struct {
-		sequence  int64
-		workerid  int64
+		// 这个时间戳内的序号
+		sequence int64
+		// 本程序唯一标记
+		workerid int64
+		// 当前时间戳
 		timestamp int64
 		sync.Mutex
 	}
