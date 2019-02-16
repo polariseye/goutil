@@ -167,3 +167,32 @@ func TestToDateTime(t *testing.T) {
 		t.Log("转换的时间为:", val)
 	}
 }
+
+func TestIsNil(t *testing.T){
+	// 直接nil的情况
+	var val interface{}=nil
+	if IsNil(val)==false{
+		t.Log("1")
+		t.Fail()
+		return
+	}
+
+	// 指向一个正常对象的情况
+	val= struct {
+		A int32
+	}{0}
+	if IsNil(val){
+		t.Log("2")
+		t.Fail()
+		return
+	}
+
+	// 指向一个nil对象的情况
+	val= (*struct {
+	})(nil)
+	if IsNil(val)==false{
+		t.Log("3")
+		t.Fail()
+		return
+	}
+}
