@@ -2,38 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7823562f-a594-4861-80c2-c63311b6bf82" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/appChargeUtil/receipt.go" beforeDir="false" afterPath="$PROJECT_DIR$/appChargeUtil/receipt.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/appChargeUtil/verify.go" beforeDir="false" afterPath="$PROJECT_DIR$/appChargeUtil/verify.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configUtil/xmlConfig.go" beforeDir="false" afterPath="$PROJECT_DIR$/configUtil/xmlConfig.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configUtil/xmlConfigList.go" beforeDir="false" afterPath="$PROJECT_DIR$/configUtil/xmlConfigList.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dbUtil/valueConvert.go" beforeDir="false" afterPath="$PROJECT_DIR$/dbUtil/valueConvert.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ensureSendUtil/httpSender.go" beforeDir="false" afterPath="$PROJECT_DIR$/ensureSendUtil/httpSender.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ensureSendUtil/httpSender_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/ensureSendUtil/httpSender_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ensureSendUtil/saveData.go" beforeDir="false" afterPath="$PROJECT_DIR$/ensureSendUtil/saveData.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ensureSendUtil/send.go" beforeDir="false" afterPath="$PROJECT_DIR$/ensureSendUtil/send.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fileUtil/bigFile.go" beforeDir="false" afterPath="$PROJECT_DIR$/fileUtil/bigFile.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logUtil/log.go" beforeDir="false" afterPath="$PROJECT_DIR$/logUtil/log.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysqlUtil/db.go" beforeDir="false" afterPath="$PROJECT_DIR$/mysqlUtil/db.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysqlUtil/dbConn.go" beforeDir="false" afterPath="$PROJECT_DIR$/mysqlUtil/dbConn.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/securityUtil/doc.go" beforeDir="false" afterPath="$PROJECT_DIR$/securityUtil/doc.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stringUtil/guid.go" beforeDir="false" afterPath="$PROJECT_DIR$/stringUtil/guid.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stringUtil/string.go" beforeDir="false" afterPath="$PROJECT_DIR$/stringUtil/string.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/syncUtil/lockUtil.go" beforeDir="false" afterPath="$PROJECT_DIR$/syncUtil/lockUtil.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/syncUtil/rwmutexUtil.go" beforeDir="false" afterPath="$PROJECT_DIR$/syncUtil/rwmutexUtil.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/timeUtil/format.go" beforeDir="false" afterPath="$PROJECT_DIR$/timeUtil/format.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/typeUtil/interface.go" beforeDir="false" afterPath="$PROJECT_DIR$/typeUtil/interface.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/typeUtil/interface_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/typeUtil/interface_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/validationUtil/validationUtil.go" beforeDir="false" afterPath="$PROJECT_DIR$/validationUtil/validationUtil.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xmlUtil/gxpath/internal/build/build.go" beforeDir="false" afterPath="$PROJECT_DIR$/xmlUtil/gxpath/internal/build/build.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xmlUtil/gxpath/internal/build/expr.go" beforeDir="false" afterPath="$PROJECT_DIR$/xmlUtil/gxpath/internal/build/expr.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xmlUtil/gxpath/internal/build/func.go" beforeDir="false" afterPath="$PROJECT_DIR$/xmlUtil/gxpath/internal/build/func.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xmlUtil/gxpath/internal/query/iter.go" beforeDir="false" afterPath="$PROJECT_DIR$/xmlUtil/gxpath/internal/query/iter.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xmlUtil/gxpath/internal/query/query.go" beforeDir="false" afterPath="$PROJECT_DIR$/xmlUtil/gxpath/internal/query/query.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xmlUtil/gxpath/select.go" beforeDir="false" afterPath="$PROJECT_DIR$/xmlUtil/gxpath/select.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xmlUtil/gxpath/select_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/xmlUtil/gxpath/select_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xmlUtil/query.go" beforeDir="false" afterPath="$PROJECT_DIR$/xmlUtil/query.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xmlUtil/xmlDocument.go" beforeDir="false" afterPath="$PROJECT_DIR$/xmlUtil/xmlDocument.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -45,6 +15,7 @@
     <session id="1994324835">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="1" />
           <entry key="project.open.time.13" value="1" />
           <entry key="project.opened" value="1" />
         </counts>
@@ -249,11 +220,6 @@
               <item name="goutil" type="b2602c69:ProjectViewProjectNode" />
               <item name="goutil" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="goutil" type="b2602c69:ProjectViewProjectNode" />
-              <item name="goutil" type="462c0819:PsiDirectoryNode" />
-              <item name="configUtil" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -288,7 +254,7 @@
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" weight="0.21281216" />
+      <window_info anchor="bottom" id="Terminal" visible="true" weight="0.21281216" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
