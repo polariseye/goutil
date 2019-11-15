@@ -2,31 +2,38 @@ package cacheUtil
 
 import (
 	"sync"
+	"time"
 
 	"github.com/polariseye/goutil/cacheUtil/simplelru"
 )
 
 // MemoryCache is a thread-safe fixed size LRU cache.
 type MemoryCache struct {
-	lru  simplelru.LRUCache
-	lock sync.RWMutex
+	lru             simplelru.LRUCache
+	lock            sync.RWMutex
+	maxCacheSeconds int64
 }
 
 // NewMemoryCache creates an LRU of the given size.
-func NewMemoryCache(size int) (*MemoryCache, error) {
-	return NewMemoryCacheWithEvict(size, nil)
+func NewMemoryCache(size int, maxCacheSeconds int64) (*MemoryCache, error) {
+	return NewMemoryCacheWithEvict(size, maxCacheSeconds, nil)
 }
 
 // NewMemoryCacheWithEvict constructs a fixed size cache with the given eviction
 // callback.
-func NewMemoryCacheWithEvict(size int, onEvicted func(mainKey, subKey interface{}, value interface{})) (*MemoryCache, error) {
+func NewMemoryCacheWithEvict(size int, _maxCacheSeconds int64, onEvicted func(mainKey, subKey interface{}, value interface{})) (*MemoryCache, error) {
 	lru, err := simplelru.NewLRU(size, simplelru.EvictCallback(onEvicted))
 	if err != nil {
 		return nil, err
 	}
 	c := &MemoryCache{
-		lru: lru,
+		lru:             lru,
+		maxCacheSeconds: _maxCacheSeconds,
 	}
+	if _maxCacheSeconds > 0 {
+		go c.removeTimeout()
+	}
+
 	return c, nil
 }
 
@@ -157,4 +164,14 @@ func (c *MemoryCache) Len() int {
 	length := c.lru.Len()
 	c.lock.RUnlock()
 	return length
+}
+
+func (c *MemoryCache) removeTimeout() {
+	for {
+		<-time.After(time.Duration(c.maxCacheSeconds) * time.Second)
+
+		c.lock.Lock()
+		c.lru.RemoveTimeoutCache(c.maxCacheSeconds)
+		c.lock.Unlock()
+	}
 }
