@@ -9,29 +9,29 @@ import (
 
 // MemoryCache is a thread-safe fixed size LRU cache.
 type MemoryCache struct {
-	lru             simplelru.LRUCache
-	lock            sync.RWMutex
-	maxCacheSeconds int64
+	lru           simplelru.LRUCache
+	lock          sync.RWMutex
+	expireSeconds int
 }
 
 // NewMemoryCache creates an LRU of the given size.
-func NewMemoryCache(size int, maxCacheSeconds int64) (*MemoryCache, error) {
-	return NewMemoryCacheWithEvict(size, maxCacheSeconds, nil)
+func NewMemoryCache(size int, expireSeconds int) (*MemoryCache, error) {
+	return NewMemoryCacheWithEvict(size, expireSeconds, nil)
 }
 
 // NewMemoryCacheWithEvict constructs a fixed size cache with the given eviction
 // callback.
-func NewMemoryCacheWithEvict(size int, _maxCacheSeconds int64, onEvicted func(mainKey, subKey interface{}, value interface{})) (*MemoryCache, error) {
+func NewMemoryCacheWithEvict(size int, _expireSeconds int, onEvicted func(mainKey, subKey interface{}, value interface{})) (*MemoryCache, error) {
 	lru, err := simplelru.NewLRU(size, simplelru.EvictCallback(onEvicted))
 	if err != nil {
 		return nil, err
 	}
 	c := &MemoryCache{
-		lru:             lru,
-		maxCacheSeconds: _maxCacheSeconds,
+		lru:           lru,
+		expireSeconds: _expireSeconds,
 	}
-	if _maxCacheSeconds > 0 {
-		go c.removeTimeout()
+	if _expireSeconds > 0 {
+		go c.removeExpired()
 	}
 
 	return c, nil
@@ -166,12 +166,12 @@ func (c *MemoryCache) Len() int {
 	return length
 }
 
-func (c *MemoryCache) removeTimeout() {
+func (c *MemoryCache) removeExpired() {
 	for {
-		<-time.After(time.Duration(c.maxCacheSeconds) * time.Second)
+		<-time.After(time.Duration(c.expireSeconds) * time.Second)
 
 		c.lock.Lock()
-		c.lru.RemoveTimeoutCache(c.maxCacheSeconds)
+		c.lru.RemoveExpired(c.expireSeconds)
 		c.lock.Unlock()
 	}
 }

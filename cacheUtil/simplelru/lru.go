@@ -253,9 +253,9 @@ func (c *LRU) Resize(size int) (evicted int) {
 	return diff
 }
 
-// RemoveTimeoutCache remove timeout cache
-func (c *LRU) RemoveTimeoutCache(maxCacheSeconds int64) {
-	minSaveTime := time.Now().Unix() - maxCacheSeconds
+// RemoveExpired remove timeout cache
+func (c *LRU) RemoveExpired(expireSeconds int) {
+	minSaveTime := time.Now().Unix() - int64(expireSeconds)
 	for {
 		backItem := c.evictList.Back()
 		if backItem == nil {

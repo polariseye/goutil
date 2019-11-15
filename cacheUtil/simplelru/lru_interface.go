@@ -48,5 +48,5 @@ type LRUCache interface {
 	Resize(int) int
 
 	// remove timeout cache
-	RemoveTimeoutCache(maxCacheSeconds int64)
+	RemoveExpired(expireSeconds int)
 }
