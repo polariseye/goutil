@@ -4,29 +4,39 @@ package simplelru
 type LRUCache interface {
 	// Adds a value to the cache, returns true if an eviction occurred and
 	// updates the "recently used"-ness of the key.
-	Add(key, value interface{}) bool
+	Set(mainKey, subKey string, value interface{}) (evicted bool)
+
+	// GetSub looks up a mainkey's values from cache
+	// updates the "recently used"-ness of the key. #value, isFound
+	Get(mainKey string) (value map[string]interface{}, ok bool)
 
 	// Returns key's value from the cache and
 	// updates the "recently used"-ness of the key. #value, isFound
-	Get(key interface{}) (value interface{}, ok bool)
+	GetSub(mainKey string, subKey string) (value interface{}, ok bool)
 
 	// Checks if a key exists in cache without updating the recent-ness.
-	Contains(key interface{}) (ok bool)
+	Contains(mainKey string) (ok bool)
+
+	// Checks if a key exists in cache without updating the recent-ness.
+	ContainsSub(mainKey, subKey string) (ok bool)
 
 	// Returns key's value without updating the "recently used"-ness of the key.
-	Peek(key interface{}) (value interface{}, ok bool)
+	Peek(mainKey, subKey string) (value interface{}, ok bool)
 
 	// Removes a key from the cache.
-	Remove(key interface{}) bool
+	Remove(mainKey string) (present bool)
+
+	// Removes a key from the cache.
+	RemoveSub(mainKey, subKey string) (present bool)
 
 	// Removes the oldest entry from cache.
-	RemoveOldest() (interface{}, interface{}, bool)
+	RemoveOldest() (mainKey string, subKey string, value interface{}, ok bool)
 
 	// Returns the oldest entry from the cache. #key, value, isFound
-	GetOldest() (interface{}, interface{}, bool)
+	GetOldest() (mainKey string, subKey string, value interface{}, ok bool)
 
 	// Returns a slice of the keys in the cache, from oldest to newest.
-	Keys() []interface{}
+	Keys() []*Key
 
 	// Returns the number of items in the cache.
 	Len() int

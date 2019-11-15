@@ -19,7 +19,7 @@ func New(size int) (*Cache, error) {
 
 // NewWithEvict constructs a fixed size cache with the given eviction
 // callback.
-func NewWithEvict(size int, onEvicted func(key interface{}, value interface{})) (*Cache, error) {
+func NewWithEvict(size int, onEvicted func(mainKey, subKey interface{}, value interface{})) (*Cache, error) {
 	lru, err := simplelru.NewLRU(size, simplelru.EvictCallback(onEvicted))
 	if err != nil {
 		return nil, err
@@ -38,35 +38,52 @@ func (c *Cache) Purge() {
 }
 
 // Add adds a value to the cache.  Returns true if an eviction occurred.
-func (c *Cache) Add(key, value interface{}) (evicted bool) {
+func (c *Cache) Set(mainKey, subKey string, value interface{}) (evicted bool) {
 	c.lock.Lock()
-	evicted = c.lru.Add(key, value)
+	evicted = c.lru.Set(mainKey, subKey, value)
 	c.lock.Unlock()
 	return evicted
 }
 
 // Get looks up a key's value from the cache.
-func (c *Cache) Get(key interface{}) (value interface{}, ok bool) {
+func (c *Cache) Get(mainKey string) (value map[string]interface{}, ok bool) {
 	c.lock.Lock()
-	value, ok = c.lru.Get(key)
+	value, ok = c.lru.Get(mainKey)
+	c.lock.Unlock()
+	return value, ok
+}
+
+// GetSub looks up a key's value from the cache.
+func (c *Cache) GetSub(mainKey string, subKey string) (value interface{}, ok bool) {
+	c.lock.Lock()
+	value, ok = c.lru.GetSub(mainKey, subKey)
 	c.lock.Unlock()
 	return value, ok
 }
 
 // Contains checks if a key is in the cache, without updating the
 // recent-ness or deleting it for being stale.
-func (c *Cache) Contains(key interface{}) bool {
+func (c *Cache) Contains(mainKey string) (ok bool) {
 	c.lock.RLock()
-	containKey := c.lru.Contains(key)
+	containKey := c.lru.Contains(mainKey)
+	c.lock.RUnlock()
+	return containKey
+}
+
+// Contains checks if a key is in the cache, without updating the
+// recent-ness or deleting it for being stale.
+func (c *Cache) ContainsSub(mainKey, subKey string) (ok bool) {
+	c.lock.RLock()
+	containKey := c.lru.Contains(mainKey)
 	c.lock.RUnlock()
 	return containKey
 }
 
 // Peek returns the key value (or undefined if not found) without updating
 // the "recently used"-ness of the key.
-func (c *Cache) Peek(key interface{}) (value interface{}, ok bool) {
+func (c *Cache) Peek(mainKey, subKey string) (value interface{}, ok bool) {
 	c.lock.RLock()
-	value, ok = c.lru.Peek(key)
+	value, ok = c.lru.Peek(mainKey, subKey)
 	c.lock.RUnlock()
 	return value, ok
 }
@@ -74,21 +91,30 @@ func (c *Cache) Peek(key interface{}) (value interface{}, ok bool) {
 // ContainsOrAdd checks if a key is in the cache  without updating the
 // recent-ness or deleting it for being stale,  and if not, adds the value.
 // Returns whether found and whether an eviction occurred.
-func (c *Cache) ContainsOrAdd(key, value interface{}) (ok, evicted bool) {
+func (c *Cache) ContainsOrAdd(mainKey string, subKey string, value interface{}) (ok, evicted bool) {
 	c.lock.Lock()
 	defer c.lock.Unlock()
 
-	if c.lru.Contains(key) {
+	if c.lru.ContainsSub(mainKey, subKey) {
 		return true, false
 	}
-	evicted = c.lru.Add(key, value)
+
+	evicted = c.lru.Set(mainKey, subKey, value)
 	return false, evicted
 }
 
 // Remove removes the provided key from the cache.
-func (c *Cache) Remove(key interface{}) (present bool) {
+func (c *Cache) Remove(mainKey string) (present bool) {
 	c.lock.Lock()
-	present = c.lru.Remove(key)
+	present = c.lru.Remove(mainKey)
+	c.lock.Unlock()
+	return
+}
+
+// Remove removes the provided key from the cache.
+func (c *Cache) RemoveSub(mainKey, subKey string) (present bool) {
+	c.lock.Lock()
+	present = c.lru.RemoveSub(mainKey, subKey)
 	c.lock.Unlock()
 	return
 }
@@ -102,23 +128,23 @@ func (c *Cache) Resize(size int) (evicted int) {
 }
 
 // RemoveOldest removes the oldest item from the cache.
-func (c *Cache) RemoveOldest() (key interface{}, value interface{}, ok bool) {
+func (c *Cache) RemoveOldest() (mainKey string, subKey string, value interface{}, ok bool) {
 	c.lock.Lock()
-	key, value, ok = c.lru.RemoveOldest()
+	mainKey, subKey, value, ok = c.lru.RemoveOldest()
 	c.lock.Unlock()
 	return
 }
 
 // GetOldest returns the oldest entry
-func (c *Cache) GetOldest() (key interface{}, value interface{}, ok bool) {
+func (c *Cache) GetOldest() (mainKey string, subKey string, value interface{}, ok bool) {
 	c.lock.Lock()
-	key, value, ok = c.lru.GetOldest()
+	mainKey, subKey, value, ok = c.lru.GetOldest()
 	c.lock.Unlock()
 	return
 }
 
 // Keys returns a slice of the keys in the cache, from oldest to newest.
-func (c *Cache) Keys() []interface{} {
+func (c *Cache) Keys() []*simplelru.Key {
 	c.lock.RLock()
 	keys := c.lru.Keys()
 	c.lock.RUnlock()
