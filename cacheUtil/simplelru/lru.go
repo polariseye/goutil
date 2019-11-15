@@ -79,7 +79,12 @@ func (c *LRU) Set(mainKey, subKey string, value interface{}) (evicted bool) {
 	}
 
 	// Add new item
-	ent := &entry{mainKey, subKey, value, time.Now().Unix()}
+	ent := &entry{
+		mainKey:     mainKey,
+		subKey:      subKey,
+		value:       value,
+		lastGetTime: time.Now().Unix(),
+	}
 	entry := c.evictList.PushFront(ent)
 	mainEntry[subKey] = entry
 
@@ -259,11 +264,11 @@ func (c *LRU) RemoveExpired(expireSeconds int) {
 	for {
 		backItem := c.evictList.Back()
 		if backItem == nil {
-			continue
+			break
 		}
 
 		entry := backItem.Value.(*entry)
-		if entry.lastGetTime >= minSaveTime {
+		if entry.lastGetTime < minSaveTime {
 			break
 		}
 

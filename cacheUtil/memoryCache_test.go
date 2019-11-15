@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"fmt"
+	"time"
 )
 
 func BenchmarkLRU_Rand(b *testing.B) {
@@ -262,5 +263,30 @@ func TestLRUResize(t *testing.T) {
 	l.Set(toString(4), "", 4)
 	if !l.ContainsSub(toString(3), "") || !l.ContainsSub(toString(4), "") {
 		t.Errorf("Cache should have contained 2 elements")
+	}
+}
+
+// test that expire is valid
+func TestExpire(t *testing.T) {
+	l, err := NewMemoryCache(2, 2)
+	if err != nil {
+		t.Fatalf("err: %v", err)
+	}
+	l.Set(toString(1), "", 1)
+	l.Set(toString(2), "", 2)
+
+	waitSecond := 0
+	for {
+		val, ok := l.GetSub(toString(1), "")
+		if !ok {
+			break
+		}
+		if waitSecond > 4 {
+			t.Fatalf("not expired waitTime:%v val:%v", waitSecond, val)
+			break
+		}
+
+		time.Sleep(time.Second)
+		waitSecond++
 	}
 }

@@ -168,7 +168,7 @@ func (c *MemoryCache) Len() int {
 
 func (c *MemoryCache) removeExpired() {
 	for {
-		<-time.After(time.Duration(c.expireSeconds) * time.Second)
+		time.Sleep(time.Duration(c.expireSeconds) * time.Second)
 
 		c.lock.Lock()
 		c.lru.RemoveExpired(c.expireSeconds)
