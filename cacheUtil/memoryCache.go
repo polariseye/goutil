@@ -21,7 +21,7 @@ func NewMemoryCache(size int, expireSeconds int) (*MemoryCache, error) {
 
 // NewMemoryCacheWithEvict constructs a fixed size cache with the given eviction
 // callback.
-func NewMemoryCacheWithEvict(size int, _expireSeconds int, onEvicted func(mainKey, subKey interface{}, value interface{})) (*MemoryCache, error) {
+func NewMemoryCacheWithEvict(size int, _expireSeconds int, onEvicted func(mainKey, subKey string, value interface{})) (*MemoryCache, error) {
 	lru, err := simplelru.NewLRU(size, simplelru.EvictCallback(onEvicted))
 	if err != nil {
 		return nil, err

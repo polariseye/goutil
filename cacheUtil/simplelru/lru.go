@@ -7,7 +7,7 @@ import (
 )
 
 // EvictCallback is used to get a callback when a cache entry is evicted
-type EvictCallback func(mainKey, subKey interface{}, value interface{})
+type EvictCallback func(mainKey, subKey string, value interface{})
 
 // LRU implements a non-thread safe fixed size LRU cache
 type LRU struct {
@@ -27,8 +27,8 @@ type entry struct {
 
 // Key is used to return entry's key
 type Key struct {
-	MaiKey string
-	SubKey string
+	MainKey string
+	SubKey  string
 }
 
 // NewLRU constructs an LRU of the given size
