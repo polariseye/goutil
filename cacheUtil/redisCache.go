@@ -14,8 +14,8 @@ type RedisCache struct {
 	redisPool   *redisUtil.RedisPool
 	memoryCache *MemoryCache
 
-	marshalFunc   func(interface{}) ([]byte, error)
-	unmarshalFunc func([]byte, interface{}) error
+	marshalObj   Marshaler
+	unmarshalObj Unmarshaler
 
 	doGroup *syncUtil.Group
 
@@ -48,7 +48,7 @@ func (r *RedisCache) SetNoExpire(mainKey, subKey string, value interface{}) (err
 
 func (r *RedisCache) setToRedis(mainKey, subKey string, value interface{}, expireSeconds int) (err error) {
 	var bytesData []byte
-	bytesData, err = r.marshalFunc(value)
+	bytesData, err = r.marshalObj.Marshal(value)
 	if err != nil {
 		return
 	}
@@ -127,7 +127,7 @@ func (r *RedisCache) getFromRedis(mainKey string, subKey string, newValueFunc fu
 	}
 
 	actualValue = newValueFunc()
-	err = r.unmarshalFunc(bytesData, actualValue)
+	err = r.unmarshalObj.Unmarshal(bytesData, actualValue)
 	if err != nil {
 		actualValue = nil
 	}
@@ -206,16 +206,16 @@ func (r *RedisCache) ConvertFromRedisKey(key string) (mainKey string, subKey str
 // NewRedisCache create and initialize RedisCache
 func NewRedisCache(memoryCacheElementCount int, memoryExpireSeconds int,
 	redisPool *redisUtil.RedisPool, redisExpireSeconds int,
-	marshalFunc func(interface{}) ([]byte, error),
-	unmarshalFunc func([]byte, interface{}) error) (cacheContainer *RedisCache, err error) {
+	marshalObj Marshaler,
+	unmarshalObj Unmarshaler) (cacheContainer *RedisCache, err error) {
 	var memoryCache *MemoryCache
 	memoryCache, err = NewMemoryCache(memoryCacheElementCount, memoryExpireSeconds)
 	return &RedisCache{
 		redisPool:                 redisPool,
 		memoryCache:               memoryCache,
 		defaultRedisExpireSeconds: redisExpireSeconds,
-		marshalFunc:               marshalFunc,
-		unmarshalFunc:             unmarshalFunc,
+		marshalObj:                marshalObj,
+		unmarshalObj:              unmarshalObj,
 		doGroup:                   &syncUtil.Group{},
 	}, nil
 }
