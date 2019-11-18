@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/polariseye/goutil/syncUtil"
 	"github.com/polariseye/goutil/redisUtil"
+	"github.com/polariseye/goutil/syncUtil"
 )
 
 // redisCache is the cache that contains memory cache and redis cache
@@ -126,10 +126,10 @@ func (r *RedisCache) getFromRedis(mainKey string, subKey string, newValueFunc fu
 		return
 	}
 
-	actualValue=newValueFunc()
+	actualValue = newValueFunc()
 	err = r.unmarshalFunc(bytesData, actualValue)
-	if err!=nil{
-		actualValue=nil
+	if err != nil {
+		actualValue = nil
 	}
 	return
 }
@@ -146,6 +146,21 @@ func (r *RedisCache) ContainsSubInMemory(mainKey, subKey string) (ok bool) {
 	}
 
 	return true
+}
+
+// ContainsInRedis check if val in redis
+func (r *RedisCache) ContainsInRedis(mainKey, subKey string) (ok bool, err error) {
+	key := r.ConvertToRedisKey(mainKey, subKey)
+	return r.redisPool.Exists(key)
+}
+
+// Contains check if key exist in memory or redis
+func (r *RedisCache) Contains(mainKey, subKey string) (ok bool, err error) {
+	if r.ContainsSubInMemory(mainKey, subKey) {
+		return true, nil
+	}
+
+	return r.ContainsInRedis(mainKey, subKey)
 }
 
 // RemoveFromMemory remove from memory
