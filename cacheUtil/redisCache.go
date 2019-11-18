@@ -5,7 +5,6 @@ import (
 	"strings"
 
 	"github.com/polariseye/goutil/syncUtil"
-
 	"github.com/polariseye/goutil/redisUtil"
 )
 
@@ -25,7 +24,7 @@ type RedisCache struct {
 
 // Set add value to memory and redis
 func (r *RedisCache) Set(mainKey, subKey string, value interface{}) (err error) {
-	err = r.setToRedis(mainKey, subKey, value, 0)
+	err = r.setToRedis(mainKey, subKey, value, r.defaultRedisExpireSeconds)
 	if err != nil {
 		return
 	}
@@ -127,7 +126,11 @@ func (r *RedisCache) getFromRedis(mainKey string, subKey string, newValueFunc fu
 		return
 	}
 
-	err = r.unmarshalFunc(bytesData, newValueFunc())
+	actualValue=newValueFunc()
+	err = r.unmarshalFunc(bytesData, actualValue)
+	if err!=nil{
+		actualValue=nil
+	}
 	return
 }
 

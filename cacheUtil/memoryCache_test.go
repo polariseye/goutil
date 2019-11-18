@@ -268,7 +268,7 @@ func TestLRUResize(t *testing.T) {
 
 // test that expire is valid
 func TestExpire(t *testing.T) {
-	l, err := NewMemoryCache(2, 2)
+	l, err := NewMemoryCache(2, 10)
 	if err != nil {
 		t.Fatalf("err: %v", err)
 	}
@@ -281,7 +281,7 @@ func TestExpire(t *testing.T) {
 		if !ok {
 			break
 		}
-		if waitSecond > 4 {
+		if waitSecond > 20 {
 			t.Fatalf("not expired waitTime:%v val:%v", waitSecond, val)
 			break
 		}
@@ -289,4 +289,5 @@ func TestExpire(t *testing.T) {
 		time.Sleep(time.Second)
 		waitSecond++
 	}
+	println(waitSecond)
 }
