@@ -71,10 +71,6 @@ func (r *RedisCache) setToRedis(mainKey, subKey string, value interface{}, expir
 // it will set a nil to memory when not exist in redis
 func (r *RedisCache) Get(mainKey string, subKey string, newValueFunc func() interface{}) (actualValue interface{}, ok bool, err error) {
 	if actualValue, ok = r.memoryCache.GetSub(mainKey, subKey); ok {
-		if actualValue == nil {
-			ok = false
-		}
-
 		return
 	}
 
@@ -82,8 +78,6 @@ func (r *RedisCache) Get(mainKey string, subKey string, newValueFunc func() inte
 	if err != nil {
 		return
 	} else if ok == false {
-		// add nil to cache to avoid too many when get
-		r.memoryCache.Set(mainKey, subKey, nil)
 		return
 	}
 
