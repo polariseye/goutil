@@ -132,6 +132,26 @@ func (this *RedisPool) Expire(key string, seconds int) (success bool, err error)
 	return
 }
 
+// 重命名
+// key:key
+// seconds:过期的秒数
+// 返回值:
+// 是否成功
+// 错误对象
+func (this *RedisPool) Rename(oldKey, newKey string) (success bool, err error) {
+	conn := this.GetConnection()
+	defer conn.Close()
+
+	var result int
+	if result, err = redis.Int(conn.Do("RENAME", oldKey, newKey)); err != nil {
+		return
+	}
+
+	success = result == 1
+
+	return
+}
+
 // 获取指定key的内容
 // key:key
 // 返回值:
@@ -221,8 +241,9 @@ func (this *RedisPool) Set2(key string, value interface{}, expireType ExpireType
 // expireType:设置的超时类型
 // setType:值存储类型
 // 返回值:
-// 错误对象
-func (this *RedisPool) SetDetail(key string, value interface{}, expireType ExpireType, expireVal int, setType SetType) error {
+// success:是否成功
+// err:错误对象
+func (this *RedisPool) SetDetail(key string, value interface{}, expireType ExpireType, expireVal int, setType SetType) (success bool, err error) {
 	conn := this.GetConnection()
 	defer conn.Close()
 
@@ -238,9 +259,14 @@ func (this *RedisPool) SetDetail(key string, value interface{}, expireType Expir
 		paramList = append(paramList, string(setType))
 	}
 
-	_, err := conn.Do("SET", paramList...)
+	var reply interface{}
+	reply, err = conn.Do("SET", paramList...)
+	if err != nil {
+		return
+	}
 
-	return err
+	success = reply == "OK"
+	return
 }
 
 // 当Key不存在时，设置key和对应的value
@@ -302,6 +328,21 @@ func (this *RedisPool) HSet(key, field string, value interface{}) error {
 	return err
 }
 
+// 给hash字段的值增加指定数量
+// key:key
+// field:field
+// value:value
+// 返回值:
+// 错误对象
+func (this *RedisPool) HIncrBy(key, field string, addNum int) error {
+	conn := this.GetConnection()
+	defer conn.Close()
+
+	_, err := conn.Do("HINCRBY", key, field, addNum)
+
+	return err
+}
+
 // 获取指定key的Hash表的所有field的值，并将其赋值给value对象
 // key:key
 // value:对象
@@ -330,6 +371,69 @@ func (this *RedisPool) HGetAll(key string, value interface{}) (exists bool, err 
 	return
 }
 
+// 获取指定key的Hash表的所有field的值
+// key:key
+// value:对象
+// 返回值:
+// 		result:获取到的值，如果没有，则Len为0
+// 		err:错误对象
+func (this *RedisPool) HGetAllString(key string) (result map[string]string, err error) {
+	conn := this.GetConnection()
+	defer conn.Close()
+
+	result, err = redis.StringMap(conn.Do("HGETALL", key))
+	return
+}
+
+type HashField struct {
+	FieldName  string
+	FieldValue string
+}
+
+// 获取指定key的Hash表的所有field的值
+// key:key
+// value:对象
+// 返回值:
+// 		result:获取到的值，如果没有，则Len为0
+// 		err:错误对象
+func (this *RedisPool) HGetAllString2(key string) (result []HashField, err error) {
+	conn := this.GetConnection()
+	defer conn.Close()
+
+	var fieldList []string
+	fieldList, err = redis.Strings(conn.Do("HGETALL", key))
+	if err != nil {
+		return
+	}
+	if len(fieldList) <= 0 {
+		return
+	}
+
+	result = make([]HashField, len(fieldList)/2)
+	for i := 0; i < len(fieldList)/2; i++ {
+		result[i] = HashField{
+			FieldName:  fieldList[i*2],
+			FieldValue: fieldList[i*2+1],
+		}
+	}
+
+	return
+}
+
+// 获取指定Hash中字段数量
+// key:key
+// value:对象
+// 返回值:
+// 		result:字段数量
+// 		err:错误对象
+func (this *RedisPool) HLen(key string) (result int, err error) {
+	conn := this.GetConnection()
+	defer conn.Close()
+
+	result, err = redis.Int(conn.Do("HLEN", key))
+	return
+}
+
 // 将对象value的值赋值给key对应的Hast表
 // key:key
 // value:对象
@@ -339,9 +443,85 @@ func (this *RedisPool) HMSet(key string, value interface{}) error {
 	conn := this.GetConnection()
 	defer conn.Close()
 
-	_, err := conn.Do("HMSET", redis.Args{}.Add(key).AddFlat(value)...)
+	_, err := conn.Do("HMSET", redis.Args{}.Add().AddFlat(value)...)
 
 	return err
+}
+
+// 删除一项
+// key:key
+// value:对象
+// 返回值:
+// 错误对象
+func (this *RedisPool) HDel(key string, field string) error {
+	conn := this.GetConnection()
+	defer conn.Close()
+
+	_, err := conn.Do("HDEL", key, field)
+
+	return err
+}
+
+// 获取多个字段的值
+// key:key
+// field:需要获取的字段列表
+// 返回值:
+// 错误对象
+func (this *RedisPool) HMGet(key string, field ...string) (result map[string]string, err error) {
+	conn := this.GetConnection()
+	defer conn.Close()
+
+	var fieldList []interface{}
+	fieldList = append(fieldList, key)
+	for _, item := range field {
+		fieldList = append(fieldList, item)
+	}
+
+	var valueList []string
+	valueList, err = redis.Strings(conn.Do("HMGET", fieldList...))
+	if err != nil {
+		return
+	}
+	if len(valueList) <= 0 {
+		return
+	}
+
+	result = make(map[string]string, len(valueList)/2)
+	for index, fieldItem := range field {
+		result[fieldItem] = valueList[index]
+	}
+
+	return
+}
+
+// 在 key 指定的哈希集中不存在指定的字段时，设置字段的值
+// key:key
+// value:对象
+// 返回值:
+// 	existed: 是否已经存在
+// 	err:错误对象
+func (this *RedisPool) HSetNX(key string, field string, val interface{}) (existed bool, err error) {
+	conn := this.GetConnection()
+	defer conn.Close()
+
+	var effectedNum int
+	effectedNum, err = redis.Int(conn.Do("HSETNX", key, field, val))
+	existed = effectedNum <= 0
+	return
+}
+
+// 给指定hash的指定字段增加一定的值
+// key:key
+// value:对象
+// 返回值:
+//  newVal: 新增的Id
+// 	err:错误对象
+func (this *RedisPool) HIncrement(key string, field string, addVal int64) (newVal int64, err error) {
+	conn := this.GetConnection()
+	defer conn.Close()
+
+	newVal, err = redis.Int64(conn.Do("HINCRBY", key, field, addVal))
+	return
 }
 
 // 获取key对应的List的指定区间的内容
@@ -375,6 +555,22 @@ func (this *RedisPool) LRem(key string, count int, value string) (removeCount in
 	defer conn.Close()
 
 	removeCount, err = redis.Int(conn.Do("LREM", key, count, value))
+
+	return
+}
+
+// 修剪(trim)一个已存在的 list. start 和 stop 都是由0开始计数的， 这里的 0 是列表里的第一个元素（表头），1 是第二个元素  -1 表示列表里的最后一个元素， -2 表示倒数第二个
+// key:key
+// count:指定数量
+// value:匹配的内容
+// 返回值:
+// 删除的数量
+// 错误对象
+func (this *RedisPool) LTrim(key string, start int, stop int) (removeCount int, err error) {
+	conn := this.GetConnection()
+	defer conn.Close()
+
+	removeCount, err = redis.Int(conn.Do("LTRIM", key, start, stop))
 
 	return
 }
@@ -635,6 +831,170 @@ func (this *RedisPool) SRem(key string, values ...string) (delCount int, err err
 	}
 
 	delCount, err = redis.Int(conn.Do("SREM", args...))
+
+	return
+}
+
+// 获取指定项的积分
+// key:set的key
+// id:需要获取项的Id
+// 返回值:
+// delCount:成功添加的项的个数
+// err:错误信息
+func (this *RedisPool) ZScore(key string, id string) (score int64, exist bool, err error) {
+	conn := this.GetConnection()
+	defer conn.Close()
+
+	score, err = redis.Int64(conn.Do("ZSCORE", key, id))
+	if err != nil {
+		if err == redis.ErrNil {
+			err = nil
+			exist = false
+			return
+		}
+
+		return
+	}
+
+	exist = true
+
+	return
+}
+
+// 添加多个到有序集合中
+// key:set的key
+// scoreAndValues:待添加的键值项格式: score,value,score,value
+// 返回值:
+// delCount:成功添加的项的个数
+// err:错误信息
+func (this *RedisPool) ZAdd(key string, setType SetType, scoreAndValues ...interface{}) (addCount int, err error) {
+	conn := this.GetConnection()
+	defer conn.Close()
+
+	paramList := make([]interface{}, 0)
+	paramList = append(paramList, key)
+	if setType != Set_Write {
+		paramList = append(paramList, setType)
+		paramList = append(paramList, scoreAndValues...)
+	} else {
+		paramList = append(paramList, scoreAndValues...)
+	}
+	addCount, err = redis.Int(conn.Do("ZADD", paramList...))
+
+	return
+}
+
+// 添加一项个到有序集合中
+// key:set的key
+// scoreAndValues:待添加的键值项
+// 返回值:
+// delCount:成功添加的项的个数
+// err:错误信息
+func (this *RedisPool) ZAdd2(key string, setType SetType, score int64, val interface{}) (addCount int, err error) {
+	conn := this.GetConnection()
+	defer conn.Close()
+
+	paramList := make([]interface{}, 0)
+	paramList = append(paramList, key)
+	if setType != Set_Write {
+		paramList = append(paramList, setType)
+		paramList = append(paramList, score, val)
+	} else {
+		paramList = append(paramList, score, val)
+	}
+
+	addCount, err = redis.Int(conn.Do("ZADD", paramList...))
+
+	return
+}
+
+// 从集合中获取指定范围的项 分数从低到高
+// key:set的key
+// scoreAndValues:待添加的键值项
+// 返回值:
+// result:获取到的项的数据 如果有返回分数，则返回为 [值,分数,值,分数。。。。。。]
+// err:错误信息
+func (this *RedisPool) ZRange(key string, isReturnScore bool, startIndex int, endIndex int) (result []string, err error) {
+	conn := this.GetConnection()
+	defer conn.Close()
+
+	paramList := make([]interface{}, 0)
+	paramList = append(paramList, key)
+	paramList = append(paramList, startIndex, endIndex)
+	if isReturnScore {
+		paramList = append(paramList, "WITHSCORES")
+	}
+
+	result, err = redis.Strings(conn.Do("ZRANGE", paramList...))
+
+	return
+}
+
+// 从集合中获取指定范围的项 分数从高到低
+// key:set的key
+// scoreAndValues:待添加的键值项
+// 返回值:
+// result:获取到的项的数据 如果有返回分数，则返回为 [值,分数,值,分数。。。。。。]
+// err:错误信息
+func (this *RedisPool) ZRevRangeByScore(key string, isReturnScore bool, startIndex int, endIndex int) (result []string, err error) {
+	conn := this.GetConnection()
+	defer conn.Close()
+
+	paramList := make([]interface{}, 0)
+	paramList = append(paramList, key)
+	paramList = append(paramList, startIndex, endIndex)
+	if isReturnScore {
+		paramList = append(paramList, "WITHSCORES")
+	}
+
+	result, err = redis.Strings(conn.Do("ZREVRANGE", paramList...))
+
+	return
+}
+
+// 从集合中获取指定范围的项
+// key:set的key
+// scoreAndValues:待添加的键值项
+// 返回值:
+// removeCount:成功移除的数量
+// err:错误信息
+func (this *RedisPool) ZRemove(key string, memberList ...interface{}) (removeCount int, err error) {
+	conn := this.GetConnection()
+	defer conn.Close()
+
+	paramList := make([]interface{}, 0)
+	paramList = append(paramList, key)
+	paramList = append(paramList, memberList...)
+	removeCount, err = redis.Int(conn.Do("ZREM", paramList...))
+
+	return
+}
+
+// 获取有序列表的长度
+// key:set的key
+// 返回值:
+// removeCount:成功移除的数量
+// err:错误信息
+func (this *RedisPool) ZCard(key string) (num int, err error) {
+	conn := this.GetConnection()
+	defer conn.Close()
+
+	num, err = redis.Int(conn.Do("ZCARD", key))
+
+	return
+}
+
+// 发布一条消息
+// channelName:频道名
+// value:发送到此频道的数据
+// 返回值:
+// isHaveSubscribe:是否有被订阅
+// err:错误信息
+func (this *RedisPool) Publish(channelName string, value []byte) (isHaveSubscribe bool, err error) {
+	conn := this.GetConnection()
+	defer conn.Close()
+
+	isHaveSubscribe, err = redis.Bool(conn.Do("PUBLISH", channelName, value))
 
 	return
 }
