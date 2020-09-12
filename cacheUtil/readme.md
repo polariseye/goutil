@@ -1,0 +1,2 @@
+缓存组件说明
+本缓存工具库使用了部分[hashicorp/golang-lru](https://github.com/hashicorp/golang-lru)与[go-redis/cache](https://github.com/go-redis/cache)代码与思路。支持更换[golang-lru](https://github.com/hashicorp/golang-lru)中的其他缓存算法

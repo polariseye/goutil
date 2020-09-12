@@ -156,6 +156,30 @@ func (this *RedisPool) Get(key string) (value string, exists bool, err error) {
 	return
 }
 
+// 获取指定key的内容
+// key:key
+// 返回值:
+// 内容
+// 是否存在
+// 错误对象
+func (this *RedisPool) GetBytes(key string) (value []byte, exists bool, err error) {
+	conn := this.GetConnection()
+	defer conn.Close()
+
+	value, err = redis.Bytes(conn.Do("GET", key))
+	if err != nil {
+		if err == redis.ErrNil {
+			err = nil
+		}
+
+		return
+	}
+
+	exists = true
+
+	return
+}
+
 // 设置key和对应的value
 // key:key
 // value:value
