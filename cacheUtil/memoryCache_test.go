@@ -9,7 +9,7 @@ import (
 )
 
 func BenchmarkLRU_Rand(b *testing.B) {
-	l, err := NewMemoryCache(8192, 0)
+	l, err := NewMemoryCache(1, 8192, 0)
 	if err != nil {
 		b.Fatalf("err: %v", err)
 	}
@@ -42,7 +42,7 @@ func toString(val interface{}) string {
 }
 
 func BenchmarkLRU_Freq(b *testing.B) {
-	l, err := NewMemoryCache(8192, 0)
+	l, err := NewMemoryCache(1, 8192, 0)
 	if err != nil {
 		b.Fatalf("err: %v", err)
 	}
@@ -81,7 +81,7 @@ func TestLRU(t *testing.T) {
 		}
 		evictCounter++
 	}
-	l, err := NewMemoryCacheWithEvict(128, 0, onEvicted)
+	l, err := NewMemoryCacheWithEvict(1, 128, 0, onEvicted)
 	if err != nil {
 		t.Fatalf("err: %v", err)
 	}
@@ -146,7 +146,7 @@ func TestLRUAdd(t *testing.T) {
 		evictCounter++
 	}
 
-	l, err := NewMemoryCacheWithEvict(1, 0, onEvicted)
+	l, err := NewMemoryCacheWithEvict(1, 1, 0, onEvicted)
 	if err != nil {
 		t.Fatalf("err: %v", err)
 	}
@@ -161,7 +161,7 @@ func TestLRUAdd(t *testing.T) {
 
 // test that Contains doesn't update recent-ness
 func TestLRUContains(t *testing.T) {
-	l, err := NewMemoryCache(2, 0)
+	l, err := NewMemoryCache(1, 2, 0)
 	if err != nil {
 		t.Fatalf("err: %v", err)
 	}
@@ -180,7 +180,7 @@ func TestLRUContains(t *testing.T) {
 
 // test that Contains doesn't update recent-ness
 func TestLRUContainsOrAdd(t *testing.T) {
-	l, err := NewMemoryCache(2, 0)
+	l, err := NewMemoryCache(1, 2, 0)
 	if err != nil {
 		t.Fatalf("err: %v", err)
 	}
@@ -210,7 +210,7 @@ func TestLRUContainsOrAdd(t *testing.T) {
 
 // test that Peek doesn't update recent-ness
 func TestLRUPeek(t *testing.T) {
-	l, err := NewMemoryCache(2, 0)
+	l, err := NewMemoryCache(1, 2, 0)
 	if err != nil {
 		t.Fatalf("err: %v", err)
 	}
@@ -233,7 +233,7 @@ func TestLRUResize(t *testing.T) {
 	onEvicted := func(mainKey, subKey string, v interface{}) {
 		onEvictCounter++
 	}
-	l, err := NewMemoryCacheWithEvict(2, 0, onEvicted)
+	l, err := NewMemoryCacheWithEvict(1, 2, 0, onEvicted)
 	if err != nil {
 		t.Fatalf("err: %v", err)
 	}
@@ -241,10 +241,7 @@ func TestLRUResize(t *testing.T) {
 	// Downsize
 	l.Set(toString(1), "", 1)
 	l.Set(toString(2), "", 2)
-	evicted := l.Resize(1)
-	if evicted != 1 {
-		t.Errorf("1 element should have been evicted: %v", evicted)
-	}
+	l.Resize(1)
 	if onEvictCounter != 1 {
 		t.Errorf("onEvicted should have been called 1 time: %v", onEvictCounter)
 	}
@@ -255,10 +252,7 @@ func TestLRUResize(t *testing.T) {
 	}
 
 	// Upsize
-	evicted = l.Resize(2)
-	if evicted != 0 {
-		t.Errorf("0 elements should have been evicted: %v", evicted)
-	}
+	l.Resize(2)
 
 	l.Set(toString(4), "", 4)
 	if !l.ContainsSub(toString(3), "") || !l.ContainsSub(toString(4), "") {
@@ -268,16 +262,20 @@ func TestLRUResize(t *testing.T) {
 
 // test that expire is valid
 func TestExpire(t *testing.T) {
-	l, err := NewMemoryCache(2, 10)
+	l, err := NewMemoryCache(1, 2, 10)
 	if err != nil {
 		t.Fatalf("err: %v", err)
 	}
-	l.Set(toString(1), "", 1)
-	l.Set(toString(2), "", 2)
+	l.Set(toString(1), "1", 1)
+	l.Set(toString(2), "2", 2)
+	l.Get("1")
+	l.RemoveSub(toString(1), "1")
+	l.GetSub("1", "1")
+	l.GetSub("1", "2")
 
 	waitSecond := 0
 	for {
-		val, ok := l.GetSub(toString(1), "")
+		val, ok := l.GetSub(toString(2), "2")
 		if !ok {
 			break
 		}

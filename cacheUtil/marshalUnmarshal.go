@@ -151,7 +151,7 @@ func (u *unmarshalBase) Unmarshal(bytesData []byte, val interface{}) error {
 			valTp.Set(reflect.ValueOf(float64(tmpResult)))
 		}
 	default:
-		return fmt.Errorf("not supported type:", valTp.Kind().String())
+		return fmt.Errorf("not supported type:%v", valTp.Kind().String())
 	}
 
 	return nil

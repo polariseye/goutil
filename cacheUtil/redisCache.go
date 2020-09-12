@@ -24,19 +24,17 @@ type RedisCache struct {
 
 // Set add value to memory and redis
 func (r *RedisCache) Set(mainKey, subKey string, value interface{}) (err error) {
-	err = r.setToRedis(mainKey, subKey, value, r.defaultRedisExpireSeconds)
-	if err != nil {
-		return
-	}
-
-	r.memoryCache.Set(mainKey, subKey, value)
-
-	return
+	return r.SetExpire(mainKey, subKey, value, r.defaultRedisExpireSeconds)
 }
 
 // set add data to memory and redis.but no expire in redis
 func (r *RedisCache) SetNoExpire(mainKey, subKey string, value interface{}) (err error) {
-	err = r.setToRedis(mainKey, subKey, value, 0)
+	return r.SetExpire(mainKey, subKey, value, 0)
+}
+
+// Set add value to memory and redis
+func (r *RedisCache) SetExpire(mainKey, subKey string, value interface{}, expireSeconds int) (err error) {
+	err = r.setToRedis(mainKey, subKey, value, expireSeconds)
 	if err != nil {
 		return
 	}
@@ -78,6 +76,7 @@ func (r *RedisCache) Get(mainKey string, subKey string, newValueFunc func() inte
 	if err != nil {
 		return
 	} else if ok == false {
+		// add nil to cache to avoid too many when get
 		return
 	}
 
@@ -198,12 +197,12 @@ func (r *RedisCache) ConvertFromRedisKey(key string) (mainKey string, subKey str
 }
 
 // NewRedisCache create and initialize RedisCache
-func NewRedisCache(memoryCacheElementCount int, memoryExpireSeconds int,
+func NewRedisCache(memoryPoolNum int, memoryCachePerElementCount int, memoryExpireSeconds int,
 	redisPool *redisUtil.RedisPool, redisExpireSeconds int,
 	marshalObj Marshaler,
 	unmarshalObj Unmarshaler) (cacheContainer *RedisCache, err error) {
 	var memoryCache *MemoryCache
-	memoryCache, err = NewMemoryCache(memoryCacheElementCount, memoryExpireSeconds)
+	memoryCache, err = NewMemoryCache(memoryPoolNum, memoryCachePerElementCount, memoryExpireSeconds)
 	return &RedisCache{
 		redisPool:                 redisPool,
 		memoryCache:               memoryCache,

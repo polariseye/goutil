@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/polariseye/goutil/redisUtil"
-	"go.mongodb.org/mongo-driver/bson"
 )
 
 type TVal struct {
@@ -26,7 +25,7 @@ func TestCache(t *testing.T) {
 		t.Fatal(err.Error())
 		return
 	}
-	cacheObj, err := NewRedisCache(2, 10, redisPoolObj, 100, bson.Marshal, bson.Unmarshal)
+	cacheObj, err := NewRedisCache(2, 10, 100, redisPoolObj, 100, nil, nil)
 	if err != nil {
 		t.Fatal(err.Error())
 		return
@@ -99,7 +98,7 @@ func TestRemove(t *testing.T) {
 		t.Fatal(err.Error())
 		return
 	}
-	cacheObj, err := NewRedisCache(2, 10, redisPoolObj, 100, bson.Marshal, bson.Unmarshal)
+	cacheObj, err := NewRedisCache(2, 10, 10, redisPoolObj, 100, nil, nil)
 	if err != nil {
 		t.Fatal(err.Error())
 		return
